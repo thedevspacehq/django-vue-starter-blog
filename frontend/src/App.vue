@@ -3,6 +3,8 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
+
+      <h2 class="text-3xl font-bold underline">Test Tailwind CSS</h2>
     </div>
     <router-view/>
   </div>
