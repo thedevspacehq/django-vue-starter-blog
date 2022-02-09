@@ -13,13 +13,14 @@
     "graphql": "^16.3.0",
     "graphql-tag": "^2.12.6",
     "vue": "^3.2.13",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.0.0-0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
     "@vue/cli-plugin-babel": "~5.0.0-rc.2",
     "@vue/cli-plugin-eslint": "~5.0.0-rc.2",
+    "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-service": "~5.0.0-rc.2",
     "autoprefixer": "^10.4.2",
     "eslint": "^7.32.0",
