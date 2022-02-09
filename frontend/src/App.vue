@@ -1,34 +1,16 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-
-      <h2 class="text-3xl font-bold underline">Test Tailwind CSS</h2>
-    </div>
-    <router-view/>
-  </div>
+  <img alt="Vue logo" src="./assets/logo.png">
+  <h2 class="line-through">Test TailwindCSS</h2>
+  <HelloWorld msg="Welcome to Your Vue.js App"/>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import HelloWorld from './components/HelloWorld.vue'
 
-#nav {
-  padding: 30px;
+export default {
+  name: 'App',
+  components: {
+    HelloWorld
+  }
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+</script>
