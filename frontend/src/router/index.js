@@ -1,19 +1,33 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-import About from '../views/About.vue'
-import AllPostsView from '../views/AllPosts.vue'
-import PostView from '../views/PostView.vue'
+import HomeView from '../views/Home.vue'
+import AboutView from '../views/About.vue'
+import BlogView from '../views/Blog.vue'
+import PostView from '../views/Post.vue'
+import CategoryView from '../views/Category.vue'
+import TagView from '../views/Tag.vue'
+import CategoriesView from '../views/Categories.vue'
+import TagsView from '../views/Tags.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: HomeView
   },
   {
     path: '/blog',
     name: 'Blog',
-    component: AllPostsView
+    component: BlogView
+  },
+  {
+    path: '/category',
+    name: 'Category',
+    component: CategoryView
+  },
+  {
+    path: '/tag',
+    name: 'Tag',
+    component: TagView
   },
   {
     path: '/post',
@@ -23,8 +37,18 @@ const routes = [
   {
     path: '/about',
     name: 'About',
-    component: About
-  }
+    component: AboutView
+  },
+  {
+    path: '/categories',
+    name: 'Categories',
+    component: CategoriesView
+  },
+  {
+    path: '/tags',
+    name: 'Tags',
+    component: TagsView
+  },
 ]
 
 const router = createRouter({

@@ -1,7 +1,7 @@
 <template>
   <div class="all-
   posts">
-    <h1 class="text-5xl font-extrabold mb-2">All Posts</h1>
+    <h1 class="text-5xl font-extrabold mb-2">Tag Name</h1>
     <p class="text-gray-500 text-lg mb-5">
       A blog created with Django, Vue.js and TailwindCSS
     </p>
@@ -24,6 +24,6 @@ import PostList from "@/components/PostList.vue";
 
 export default {
   components: { PostList },
-  name: "AllPostsView",
+  name: "TagView",
 };
 </script>

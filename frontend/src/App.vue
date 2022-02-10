@@ -3,7 +3,7 @@
     <header class="flex flex-col justify-items-stretch">
       <div class="nav flex flex-row justify-between mb-5 py-5 border-b-2">
         <div class="nav-logo text-2xl font-bold">
-          Vue.js Starter Blog
+          Starter Blog
         </div>
         <div class="nav-links flex flex-row items-center">
           <router-link
@@ -15,6 +15,16 @@
             to="/blog"
             class="mx-2 font-sans font-medium hover:underline hover:text-teal-700"
             >Blog</router-link
+          >
+          <router-link
+            to="/categories"
+            class="mx-2 font-sans font-medium hover:underline hover:text-teal-700"
+            >Category</router-link
+          >
+          <router-link
+            to="/tags"
+            class="mx-2 font-sans font-medium hover:underline hover:text-teal-700"
+            >Tag</router-link
           >
           <router-link
             to="/about"
