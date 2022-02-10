@@ -12,11 +12,6 @@
             >Home</router-link
           >
           <router-link
-            to="/blog"
-            class="mx-2 font-sans font-medium hover:underline hover:text-teal-700"
-            >Blog</router-link
-          >
-          <router-link
             to="/categories"
             class="mx-2 font-sans font-medium hover:underline hover:text-teal-700"
             >Category</router-link
@@ -25,11 +20,6 @@
             to="/tags"
             class="mx-2 font-sans font-medium hover:underline hover:text-teal-700"
             >Tag</router-link
-          >
-          <router-link
-            to="/about"
-            class="mx-2 font-sans font-medium hover:underline hover:text-teal-700"
-            >About</router-link
           >
           <router-link
             to="/"

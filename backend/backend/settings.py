@@ -42,9 +42,11 @@ INSTALLED_APPS = [
     'graphene_django',
     'ckeditor',
     'ckeditor_uploader',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -136,3 +138,12 @@ MEDIA_URL = '/media/'
 
 # Change Default User Model
 AUTH_USER_MODEL = 'blog.User'
+
+# Configure GraphQL
+GRAPHENE = {
+  "SCHEMA": "blog.schema.schema",
+}
+
+# Cross origin resource sharing
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = ("http://localhost:8080",) # Matches the port that Vue.js is using
