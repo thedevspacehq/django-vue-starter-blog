@@ -9,7 +9,7 @@
 							<dd
 								class="text-base font-medium leading-6 text-gray-500 dark:text-gray-400"
 							>
-								<time>{{ post.createdAt }}</time>
+								<time>{{ formatDate(post.createdAt) }}</time>
 							</dd>
 						</dl>
 						<div class="space-y-5 xl:col-span-3">
@@ -23,7 +23,7 @@
 										>
 									</h2>
 									<router-link
-                    v-if="post.category"
+										v-if="post.category"
 										class="text-sm font-medium uppercase text-teal-500 hover:underline hover:text-teal-700"
 										:to="`/category/${post.category.slug}`"
 										>{{ post.category.name }}</router-link
@@ -68,6 +68,24 @@ export default {
 		},
 		trimString(string) {
 			return string.substring(0, 350) + "...";
+		},
+		formatDate(x) {
+			let date = new Date(x);
+			var month = [
+				"January",
+				"February",
+				"March",
+				"April",
+				"May",
+				"June",
+				"July",
+				"August",
+				"September",
+				"October",
+				"November",
+				"December",
+			][date.getMonth()];
+			return month + " " + date.getDate() + ", " + date.getFullYear();
 		},
 	},
 };
