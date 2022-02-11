@@ -3,7 +3,7 @@
 		<div class="flex flex-col justify-between h-screen">
 			<header class="flex flex-row items-center justify-between py-10">
 				<div class="nav-logo text-2xl font-bold">
-					<router-link to="/">Starter Blog</router-link>
+					<router-link to="/" v-if="mySite">{{mySite.name}}</router-link>
 				</div>
 				<div class="nav-links hidden sm:block">
 					<router-link
@@ -108,11 +108,27 @@
 </template>
 
 <script>
+import gql from "graphql-tag";
+
 export default {
 	data() {
 		return {
 			menuOpen: false,
+			mySite: null,
 		};
+	},
+
+	async created() {
+		const siteInfo = await this.$apollo.query({
+			query: gql`
+				query {
+					site {
+						name
+					}
+				}
+			`,
+		});
+		this.mySite = siteInfo.data.site;
 	},
 };
 </script>

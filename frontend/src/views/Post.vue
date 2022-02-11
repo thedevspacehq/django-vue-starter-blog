@@ -5,11 +5,21 @@
 				:src="`http://127.0.0.1:8000/media/${postBySlug.featuredImage}`"
 				class="w-full my-5"
 			/>
+			<h1 class="text-center text-5xl font-extrabold mb-5">{{ postBySlug.title }}</h1>
 			<p class="text-gray-500 text-lg mb-2">{{ formatDate(postBySlug.createdAt) }}</p>
-			<h1 class="text-5xl font-extrabold mb-5">{{ postBySlug.title }}</h1>
+			<p class="text-gray-500 text-lg mb-2">By {{ postBySlug.user.username }}</p>
 		</div>
 		<div class="py-5 font-serif space-y-4">
 			<div v-html="postBySlug.content"></div>
+		</div>
+		<div class="flex flex-wrap">
+			<router-link
+				v-for="tag in postBySlug.tag"
+				:key="tag.name"
+				class="my-2 mr-5 text-sm font-medium uppercase text-teal-500 hover:underline hover:text-teal-700"
+				:to="`/tag/${tag.slug}`"
+				>{{ tag.name }}</router-link
+			>
 		</div>
 	</div>
 </template>

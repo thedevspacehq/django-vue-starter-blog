@@ -133,7 +133,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CKEDITOR_UPLOAD_PATH = "posts/uploads/%Y/%m/%d/"
 
 # Media Files
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'mediafiles')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 MEDIA_URL = '/media/'
 
 # Change Default User Model
@@ -141,9 +141,19 @@ AUTH_USER_MODEL = 'blog.User'
 
 # Configure GraphQL
 GRAPHENE = {
-  "SCHEMA": "blog.schema.schema",
+    "SCHEMA": "blog.schema.schema",
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
 }
 
 # Cross origin resource sharing
 CORS_ORIGIN_ALLOW_ALL = False
-CORS_ORIGIN_WHITELIST = ("http://localhost:8080",) # Matches the port that Vue.js is using
+# Matches the port that Vue.js is using
+CORS_ORIGIN_WHITELIST = ("http://localhost:8080",)
+
+# JWT setting
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
