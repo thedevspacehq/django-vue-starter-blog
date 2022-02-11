@@ -13,17 +13,17 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/category',
+    path: '/category/:category',
     name: 'Category',
     component: CategoryView
   },
   {
-    path: '/tag',
+    path: '/tag/:tag',
     name: 'Tag',
     component: TagView
   },
   {
-    path: '/post',
+    path: '/post/:slug',
     name: 'Post',
     component: PostView
   },

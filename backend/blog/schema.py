@@ -37,6 +37,8 @@ class Query(graphene.ObjectType):
 
     posts_by_category = graphene.List(PostType, category=graphene.String())
     posts_by_tag = graphene.List(PostType, tag=graphene.String())
+    
+    post_by_slug = graphene.Field(PostType, slug=graphene.String())
 
     def resolve_all_posts(root, info):
         return (
@@ -55,12 +57,17 @@ class Query(graphene.ObjectType):
 
     def resolve_posts_by_category(root, info, category):
         return (
-            models.Post.objects.filter(category__name__iexact=category)
+            models.Post.objects.filter(category__slug__iexact=category)
         )
 
     def resolve_posts_by_tag(root, info, tag):
         return (
-            models.Post.objects.filter(tag__name__iexact=tag)
+            models.Post.objects.filter(tag__slug__iexact=tag)
+        )
+
+    def resolve_post_by_slug(root, info, slug):
+        return (
+            models.Post.objects.get(slug__iexact=slug)
         )
 
 
