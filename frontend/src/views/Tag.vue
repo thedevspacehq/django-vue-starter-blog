@@ -18,7 +18,7 @@
 <script>
 // @ is an alias to /src
 import PostList from "@/components/PostList.vue";
-import gql from "graphql-tag";
+import {POSTS_BY_TAG} from '@/queries'
 
 export default {
 	components: { PostList },
@@ -32,22 +32,7 @@ export default {
 
 	async created() {
 		const posts = await this.$apollo.query({
-			query: gql`
-				query ($tag: String!) {
-					postsByTag(tag: $tag) {
-						title
-						slug
-						content
-						isPublished
-						isFeatured
-						createdAt
-            category {
-							name
-							slug
-						}
-					}
-				}
-			`,
+			query: POSTS_BY_TAG,
 			variables: {
 				tag: this.$route.params.tag,
 			},

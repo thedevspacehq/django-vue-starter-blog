@@ -10,7 +10,7 @@
 <script>
 // @ is an alias to /src
 import PostList from "@/components/PostList.vue";
-import gql from "graphql-tag";
+import { ALL_POSTS } from '@/queries';
 
 export default {
 	components: { PostList },
@@ -24,22 +24,7 @@ export default {
 
 	async created() {
 		const posts = await this.$apollo.query({
-			query: gql`
-				query {
-					allPosts {
-						title
-						slug
-						content
-						isPublished
-						isFeatured
-						createdAt
-						category {
-							name
-							slug
-						}
-					}
-				}
-			`,
+			query: ALL_POSTS,
 		});
 		this.allPosts = posts.data.allPosts;
 	},

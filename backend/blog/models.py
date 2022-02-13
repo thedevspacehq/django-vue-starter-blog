@@ -25,7 +25,7 @@ class Site(models.Model):
 class User(AbstractUser):
     avatar = models.ImageField(
         upload_to='users/avatars/%Y/%m/%d/',
-        default=settings.MEDIA_ROOT + 'users/avatars/default.jpg'
+        default='users/avatars/default.jpg'
     )
     bio = models.TextField(max_length=160, null=True)
     location = models.CharField(max_length=30, null=True)

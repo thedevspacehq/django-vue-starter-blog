@@ -38,7 +38,7 @@
             class="w-10"
           />
           <p class="text-lg font-sans font-bold">{{ comment.user.username }}</p>
-          <p class="text-sm text-gray-500">- {{ comment.createdAt }}</p>
+          <p class="text-sm text-gray-500">- {{ formatDate(comment.createdAt) }}</p>
         </div>
 
         <p>
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import gql from "graphql-tag";
+import { POST_BY_SLUG } from '@/queries';
 
 export default {
   name: "PostView",
@@ -70,39 +70,7 @@ export default {
 
   async created() {
     const post = await this.$apollo.query({
-      query: gql`
-        query ($slug: String!) {
-          postBySlug(slug: $slug) {
-            title
-            content
-            featuredImage
-            createdAt
-            category {
-              name
-              slug
-            }
-            tag {
-              name
-              slug
-            }
-            user {
-              username
-              firstName
-              lastName
-            }
-            commentSet {
-              id
-              content
-              createdAt
-              isApproved
-              user {
-                username
-                avatar
-              }
-            }
-          }
-        }
-      `,
+      query: POST_BY_SLUG,
       variables: {
         slug: this.$route.params.slug,
       },

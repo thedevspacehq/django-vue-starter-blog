@@ -1,20 +1,17 @@
+import imp
 import graphene
-from blog import models, types
+from blog import models
+from blog import types
 
-# Query retrieves data from the database
 
-
+# The Query class
 class Query(graphene.ObjectType):
     site = graphene.Field(types.SiteType)
-
     all_posts = graphene.List(types.PostType)
     all_categories = graphene.List(types.CategoryType)
     all_tags = graphene.List(types.TagType)
-
-    posts_by_category = graphene.List(
-        types.PostType, category=graphene.String())
+    posts_by_category = graphene.List(types.PostType, category=graphene.String())
     posts_by_tag = graphene.List(types.PostType, tag=graphene.String())
-
     post_by_slug = graphene.Field(types.PostType, slug=graphene.String())
 
     def resolve_site(root, info):
