@@ -1,12 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "@/views/Home.vue";
-import PostView from "@/views/Post.vue";
-import CategoryView from "@/views/Category.vue";
-import TagView from "@/views/Tag.vue";
-import AllCategoriesView from "@/views/AllCategories.vue";
-import AllTagsView from "@/views/AllTags.vue";
-import AccountView from "@/views/Account.vue";
-import SignInSuccessView from "@/views/SignInSuccess.vue"
+import HomeView from "@/views/main/Home.vue";
+import PostView from "@/views/main/Post.vue";
+import CategoryView from "@/views/main/Category.vue";
+import TagView from "@/views/main/Tag.vue";
+import AllCategoriesView from "@/views/main/AllCategories.vue";
+import AllTagsView from "@/views/main/AllTags.vue";
+import AccountView from "@/views/user/Account.vue";
+import SignInSuccessView from "@/views/user/SignInSuccess.vue"
+import ProfileView from "@/views/user/Profile.vue"
 
 const routes = [
   {
@@ -48,6 +49,11 @@ const routes = [
     path: "/success",
     name: "Success",
     component: SignInSuccessView,
+  },
+  {
+    path: "/account/profile/:username",
+    name: "Profile",
+    component: ProfileView,
   },
 ];
 
