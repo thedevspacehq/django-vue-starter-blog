@@ -2,8 +2,6 @@
 
 A simple blog application created using Django, Vue.js and GraphQL.
 
----
-
 ## Features
 
 - Including recent posts, category, tag, and post page
@@ -87,3 +85,7 @@ npm install
 ```
 
 Start frontend dev server.
+
+```bash
+npm run serve
+```
