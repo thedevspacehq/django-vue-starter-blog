@@ -16,37 +16,37 @@ A simple blog application created using Django, Vue.js and GraphQL.
 
 ## Screenshots
 
-![Home Page](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b55a2516-5a05-4a5f-8946-88307f38a52b/Screen_Shot_2022-02-13_at_7.13.52_PM.png)
-
 Home Page
 
-![All Categories](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/dce12120-4ff6-4eba-8348-8b5826c0ac66/Screen_Shot_2022-02-13_at_7.14.07_PM.png)
+![Home Page](https://github.com/ericnanhu/django-vue-starter-blog/blob/main/screenshots/Screen%20Shot%202022-02-13%20at%207.13.52%20PM.png?raw=true)
 
 All Categories
 
-![All Tags](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/23faa61e-20ef-47b4-8370-28e3d5b3e740/Screen_Shot_2022-02-13_at_7.14.20_PM.png)
+![All Categories](https://github.com/ericnanhu/django-vue-starter-blog/blob/main/screenshots/Screen%20Shot%202022-02-13%20at%207.14.07%20PM.png?raw=true)
 
 All Tags
 
-![Sign In Page](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/dd1495f0-cb49-4805-ac9c-4ad309251c86/Screen_Shot_2022-02-13_at_7.14.34_PM.png)
+![All Tags](https://github.com/ericnanhu/django-vue-starter-blog/blob/main/screenshots/Screen%20Shot%202022-02-13%20at%207.14.20%20PM.png?raw=true)
 
 Sign In Page
 
-![Sign Up Page](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0842548b-29a4-450c-94bc-8f76291d6cca/Screen_Shot_2022-02-13_at_7.14.43_PM.png)
+![Sign In Page](https://github.com/ericnanhu/django-vue-starter-blog/blob/main/screenshots/Screen%20Shot%202022-02-13%20at%207.14.34%20PM.png?raw=true)
 
 Sign Up Page
 
-![Post Page](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/70daac8c-b7d6-482c-9566-4585c5982059/Screen_Shot_2022-02-13_at_7.15.33_PM.png)
+![Sign Up Page](https://github.com/ericnanhu/django-vue-starter-blog/blob/main/screenshots/Screen%20Shot%202022-02-13%20at%207.14.43%20PM.png?raw=true)
 
 Post Page
 
-![Comment Section](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b6ec656b-9eda-4a53-b4b7-3f78362d5734/Screen_Shot_2022-02-13_at_7.15.21_PM.png)
+![Post Page](https://github.com/ericnanhu/django-vue-starter-blog/blob/main/screenshots/Screen%20Shot%202022-02-13%20at%207.15.33%20PM.png?raw=true)
 
 Comment Section
 
-![Django Admin Panel](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2bb1c1d1-7280-45b2-9d29-a0673d478e68/Screen_Shot_2022-02-13_at_7.31.47_PM.png)
+![Comment Section](https://github.com/ericnanhu/django-vue-starter-blog/blob/main/screenshots/Screen%20Shot%202022-02-13%20at%207.15.21%20PM.png?raw=true)
 
 Django Admin Panel
+
+![Django Admin Panel](https://github.com/ericnanhu/django-vue-starter-blog/blob/main/screenshots/Screen%20Shot%202022-02-13%20at%207.42.00%20PM.png?raw=true)
 
 ## Installation
 
