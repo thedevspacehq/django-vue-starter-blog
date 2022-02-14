@@ -1,4 +1,3 @@
-import imp
 import graphene
 from blog import models
 from blog import types
@@ -13,6 +12,7 @@ class Query(graphene.ObjectType):
     posts_by_category = graphene.List(types.PostType, category=graphene.String())
     posts_by_tag = graphene.List(types.PostType, tag=graphene.String())
     post_by_slug = graphene.Field(types.PostType, slug=graphene.String())
+    current_user = graphene.Field(types.UserType)
 
     def resolve_site(root, info):
         return (
@@ -48,3 +48,9 @@ class Query(graphene.ObjectType):
         return (
             models.Post.objects.get(slug__iexact=slug)
         )
+
+    def resolve_surrent_user(self, info, **kwargs):
+        user = info.context.user
+        if not user.is_authenticated:
+            raise Exception("Authentication credentials were not provided")
+        return user

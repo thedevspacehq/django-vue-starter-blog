@@ -115,10 +115,10 @@ export default {
   methods: {
     ...mapActions(["signUp", "signIn"]),
     userSignIn: function () {
-      this.signIn(this.signInDetails).then(() => this.$router.push("/account"));
+      this.signIn(this.signInDetails).then(() => this.$router.push("/success"));
     },
     userSignUp: function () {
-      this.signUp(this.signUpDetails).then(() => this.$router.push("/account"));
+      this.signUp(this.signUpDetails).then(() => this.$router.push("/success"));
     },
   },
 };

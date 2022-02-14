@@ -5,7 +5,8 @@ import CategoryView from "@/views/Category.vue";
 import TagView from "@/views/Tag.vue";
 import AllCategoriesView from "@/views/AllCategories.vue";
 import AllTagsView from "@/views/AllTags.vue";
-import Account from "@/views/Account.vue";
+import AccountView from "@/views/Account.vue";
+import SignInSuccessView from "@/views/SignInSuccess.vue"
 
 const routes = [
   {
@@ -41,7 +42,12 @@ const routes = [
   {
     path: "/account",
     name: "Account",
-    component: Account,
+    component: AccountView,
+  },
+  {
+    path: "/success",
+    name: "Success",
+    component: SignInSuccessView,
   },
 ];
 

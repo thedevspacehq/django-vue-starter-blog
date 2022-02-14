@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <div class="flex flex-col place-items-center border-b-2">
+      <!-- Featured Image and title -->
       <img
         :src="`http://127.0.0.1:8000/media/${postBySlug.featuredImage}`"
         class="w-full my-5"
@@ -13,10 +14,14 @@
         {{ postBySlug.user.username }}
       </p>
     </div>
+
+    <!-- Main content -->
     <div class="py-5 font-serif space-y-4">
       <div v-html="postBySlug.content"></div>
     </div>
-    <div class="flex flex-wrap border-b-2">
+
+    <!-- Tags -->
+    <div class="flex flex-wrap">
       <div class="my-2 mr-5 text-sm font-medium">Tags:</div>
       <router-link
         v-for="tag in postBySlug.tag"
@@ -26,34 +31,25 @@
         >{{ tag.name }}</router-link
       >
     </div>
-    <div class="flex flex-col my-4 space-y-10">
-      <p class="font-bold text-2xl">Comments:</p>
-      <div v-for="comment in approvedComments" :key="comment.id">
-        <div
-          class="flex flex-row justify-start content-center items-center space-x-2 mb-2"
-        >
-          <img
-            :src="`http://127.0.0.1:8000/media/${comment.user.avatar}`"
-            alt=""
-            class="w-10"
-          />
-          <p class="text-lg font-sans font-bold">{{ comment.user.username }}</p>
-          <p class="text-sm text-gray-500">- {{ formatDate(comment.createdAt) }}</p>
-        </div>
 
-        <p>
-          {{ comment.content }}
-        </p>
-      </div>
-    </div>
+    <!-- Comment Section -->
+    <!-- Pass the approved comments and the post id to the comment component -->
+    <CommentSectionComponent
+      v-if="this.approvedComments"
+      :comments="this.approvedComments"
+      :postID="this.postBySlug.id"
+    ></CommentSectionComponent>
   </div>
 </template>
 
 <script>
-import { POST_BY_SLUG } from '@/queries';
+import { POST_BY_SLUG } from "@/queries";
+import CommentSectionComponent from "@/components/CommentSection.vue";
 
 export default {
   name: "PostView",
+
+  components: { CommentSectionComponent },
 
   data() {
     return {
@@ -63,12 +59,14 @@ export default {
   },
 
   computed: {
-    approvedComments(){
-      return this.comments.filter((comment) => comment.isApproved)
-    }
+    // Filters out the unapproved comments
+    approvedComments() {
+      return this.comments.filter((comment) => comment.isApproved);
+    },
   },
 
   async created() {
+    // Get the post before the instance is mounted
     const post = await this.$apollo.query({
       query: POST_BY_SLUG,
       variables: {

@@ -27,7 +27,7 @@ class User(AbstractUser):
         upload_to='users/avatars/%Y/%m/%d/',
         default='users/avatars/default.jpg'
     )
-    bio = models.TextField(max_length=160, null=True)
+    bio = models.TextField(max_length=500, null=True)
     location = models.CharField(max_length=30, null=True)
     website = models.CharField(max_length=100, null=True)
     joined_date = models.DateField(auto_now_add=True)
@@ -97,7 +97,7 @@ class Post(models.Model):
 
 # Comment model
 class Comment(models.Model):
-    content = models.TextField(max_length=300)
+    content = models.TextField(max_length=1000)
     created_at = models.DateField(auto_now_add=True)
     is_approved = models.BooleanField(default=False)
 

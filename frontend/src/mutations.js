@@ -14,6 +14,25 @@ export const USER_SIGNIN = gql`
   mutation ($username: String!, $password: String!) {
     tokenAuth(username: $username, password: $password) {
       token
+      user{
+        id
+        username
+        firstName
+        lastName
+        email
+        bio
+        website
+      }
+    }
+  }
+`;
+
+export const SUBMIT_COMMENT = gql`
+  mutation ($content: String!, $userID: ID!, $postID: ID!) {
+    createComment(content: $content, userId: $userID, postId: $postID) {
+      comment {
+        content
+      }
     }
   }
 `;

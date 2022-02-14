@@ -22,9 +22,16 @@
             >Tag</router-link
           >
           <router-link
+            v-if="!this.isAuthenticated"
             to="/account"
             class="mx-2 font-sans font-medium hover:underline hover:text-teal-700"
             >Sign in / Sign up</router-link
+          >
+          <a
+            v-else
+            @click="userSignOut()"
+            class="mx-2 font-sans font-medium hover:underline hover:text-teal-700"
+            >Sign Out</a
           >
         </div>
         <div class="sm:hidden">
@@ -60,16 +67,24 @@
                 class="pl-4 text-xl font-sans font-medium hover:underline hover:text-teal-700"
                 >Tag</router-link
               >
+
               <router-link
-                to="/"
+                v-if="!this.isAuthenticated"
+                to="/account"
                 class="pl-4 text-xl font-sans font-medium hover:underline hover:text-teal-700"
                 >Sign in / Sign up</router-link
+              >
+              <a
+                v-else
+                @click="userSignOut()"
+                class="pl-4 text-xl font-sans font-medium hover:underline hover:text-teal-700"
+                >Sign Out</a
               >
             </nav>
           </div>
         </div>
       </header>
-      <p>{{ isAuthenticated }}</p>
+
       <router-view />
 
       <footer class="flex flex-col place-items-center mt-5 py-5 border-t-2">
@@ -115,7 +130,7 @@
 
 <script>
 import { SITE_INFO } from "@/queries";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   data() {
@@ -126,7 +141,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["isAuthenticated", "user", "authStatus"]),
+    ...mapGetters(["isAuthenticated", "user"]),
   },
 
   async created() {
@@ -134,6 +149,13 @@ export default {
       query: SITE_INFO,
     });
     this.mySite = siteInfo.data.site;
+  },
+
+    methods: {
+    ...mapActions(["signOut"]),
+    userSignOut: function () {
+      this.signOut().then(() => this.$router.push("/"));
+    },
   },
 };
 </script>

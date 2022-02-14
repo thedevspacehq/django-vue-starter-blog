@@ -58,6 +58,7 @@ export const POSTS_BY_TAG = gql`
 export const POST_BY_SLUG = gql`
   query ($slug: String!) {
     postBySlug(slug: $slug) {
+      id
       title
       content
       featuredImage
@@ -106,4 +107,3 @@ export const ALL_TAGS = gql`
     }
   }
 `;
-
