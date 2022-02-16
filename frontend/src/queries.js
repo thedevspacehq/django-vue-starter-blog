@@ -107,3 +107,28 @@ export const ALL_TAGS = gql`
     }
   }
 `;
+
+export const CURRENT_USER = gql`
+  query ($id: ID!) {
+    currentUser(id: $id){
+      username
+      firstName
+      lastName
+      email
+      avatar
+      bio
+      location
+      website
+      commentSet{
+        id
+        content
+        post{
+          id
+          title
+          slug
+        }
+        isApproved
+      }
+    }
+  }
+`;

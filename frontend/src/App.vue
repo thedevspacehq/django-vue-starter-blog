@@ -27,8 +27,14 @@
             class="mx-2 font-sans font-medium hover:underline hover:text-teal-700"
             >Sign in / Sign up</router-link
           >
+          <router-link
+            v-if="this.isAuthenticated"
+            to="/account/profile"
+            class="mx-2 font-sans font-medium hover:underline hover:text-teal-700"
+            >Profile</router-link
+          >
           <a
-            v-else
+            v-if="this.isAuthenticated"
             @click="userSignOut()"
             class="mx-2 font-sans font-medium hover:underline hover:text-teal-700"
             >Sign Out</a
@@ -74,8 +80,16 @@
                 class="pl-4 text-xl font-sans font-medium hover:underline hover:text-teal-700"
                 >Sign in / Sign up</router-link
               >
+
+              <router-link
+                v-if="this.isAuthenticated"
+                to="/account/profile"
+                class="pl-4 text-xl font-sans font-medium hover:underline hover:text-teal-700"
+                >Profile</router-link
+              >
+
               <a
-                v-else
+                v-if="this.isAuthenticated"
                 @click="userSignOut()"
                 class="pl-4 text-xl font-sans font-medium hover:underline hover:text-teal-700"
                 >Sign Out</a
@@ -151,7 +165,7 @@ export default {
     this.mySite = siteInfo.data.site;
   },
 
-    methods: {
+  methods: {
     ...mapActions(["signOut"]),
     userSignOut: function () {
       this.signOut().then(() => this.$router.push("/"));

@@ -51,7 +51,7 @@ const routes = [
     component: SignInSuccessView,
   },
   {
-    path: "/account/profile/:username",
+    path: "/account/profile",
     name: "Profile",
     component: ProfileView,
   },
