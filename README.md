@@ -7,10 +7,10 @@ A simple blog application created using Django, Vue.js and GraphQL.
 - Including recent posts, category, tag, and post page
 - User registration and login. Built with JWT and Vuex.
 - Comment section. Only authenticated users can leave comment, and it won’t show up until approved by the admin.
+- User profile page. Guest user can see and edit all comments that belong to that user.
 
 ## Coming Soon
 
-- User profile page. Guest user can see and edit all comments that belong to that user.
 - Like system. Guest user can like posts and comments.
 - Author verification. Guest user can verify to become authors, who can post new articles.
 
