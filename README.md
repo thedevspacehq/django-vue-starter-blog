@@ -44,6 +44,14 @@ Comment Section
 
 ![Comment Section](https://github.com/ericnanhu/django-vue-starter-blog/blob/main/screenshots/Screen%20Shot%202022-02-13%20at%207.15.21%20PM.png?raw=true)
 
+User Profile Page
+
+![User Profile Page](https://github.com/ericnanhu/django-vue-starter-blog/blob/main/screenshots/Screen%20Shot%202022-02-16%20at%2010.20.18%20AM.png?raw=true)
+
+User Profile Page Comment Section
+
+![User Profile Page Comment Section](https://github.com/ericnanhu/django-vue-starter-blog/blob/main/screenshots/Screen%20Shot%202022-02-16%20at%2010.20.36%20AM.png?raw=true)
+
 Django Admin Panel
 
 ![Django Admin Panel](https://github.com/ericnanhu/django-vue-starter-blog/blob/main/screenshots/Screen%20Shot%202022-02-13%20at%207.42.00%20PM.png?raw=true)
