@@ -1,3 +1,4 @@
+import graphene
 from graphene_django import DjangoObjectType
 from blog import models
 
@@ -25,6 +26,11 @@ class TagType(DjangoObjectType):
 class PostType(DjangoObjectType):
     class Meta:
         model = models.Post
+
+    number_of_likes = graphene.String()
+
+    def resolve_number_of_likes(self, info):
+        return self.get_number_of_likes()
 
 
 class CommentType(DjangoObjectType):

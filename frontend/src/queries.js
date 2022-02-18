@@ -76,6 +76,10 @@ export const POST_BY_SLUG = gql`
         firstName
         lastName
       }
+      numberOfLikes
+      likes {
+        id
+      }
       commentSet {
         id
         content
@@ -110,7 +114,7 @@ export const ALL_TAGS = gql`
 
 export const CURRENT_USER = gql`
   query ($id: ID!) {
-    currentUser(id: $id){
+    currentUser(id: $id) {
       username
       firstName
       lastName
@@ -119,10 +123,10 @@ export const CURRENT_USER = gql`
       bio
       location
       website
-      commentSet{
+      commentSet {
         id
         content
-        post{
+        post {
           id
           title
           slug

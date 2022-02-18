@@ -14,7 +14,7 @@ export const USER_SIGNIN = gql`
   mutation ($username: String!, $password: String!) {
     tokenAuth(username: $username, password: $password) {
       token
-      user{
+      user {
         id
         username
         firstName
@@ -32,6 +32,19 @@ export const SUBMIT_COMMENT = gql`
     createComment(content: $content, userId: $userID, postId: $postID) {
       comment {
         content
+      }
+    }
+  }
+`;
+
+export const UPDATE_POST_LIKE = gql`
+  mutation ($postID: ID!, $userID: ID!) {
+    updatePostLike(postId: $postID, userId: $userID) {
+      post {
+        title
+        likes {
+          id
+        }
       }
     }
   }

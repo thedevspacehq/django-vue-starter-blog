@@ -20,6 +20,25 @@
       <div v-html="postBySlug.content"></div>
     </div>
 
+    <!-- Like -->
+    <div class="flex flex-wrap py-4 space-x-2 items-center">
+      <p class="my-2 text-sm font-medium">Likes:</p>
+      <div v-if="this.liked === true" @click="this.updateLike()">
+        <i class="fa-solid fa-thumbs-up">
+          <span class="font-sans text-sm font-normal ml-1">{{
+            this.numberOfLikes
+          }}</span>
+        </i>
+      </div>
+      <div v-else @click="this.updateLike()">
+        <i class="fa-regular fa-thumbs-up">
+          <span class="font-sans text-sm font-normal ml-1">{{
+            this.numberOfLikes
+          }}</span>
+        </i>
+      </div>
+    </div>
+
     <!-- Tags -->
     <div class="flex flex-wrap">
       <div class="my-2 mr-5 text-sm font-medium">Tags:</div>
@@ -45,6 +64,7 @@
 <script>
 import { POST_BY_SLUG } from "@/queries";
 import CommentSectionComponent from "@/components/CommentSection.vue";
+import { UPDATE_POST_LIKE } from "@/mutations";
 
 export default {
   name: "PostView",
@@ -55,6 +75,9 @@ export default {
     return {
       postBySlug: null,
       comments: null,
+      liked: false,
+      numberOfLikes: 0,
+      userID: null,
     };
   },
 
@@ -75,6 +98,22 @@ export default {
     });
     this.postBySlug = post.data.postBySlug;
     this.comments = post.data.postBySlug.commentSet;
+
+    // Check if the current user has liked the post
+    // Get the current user id
+    this.userID = JSON.parse(localStorage.getItem("user")).id;
+
+    // Find if the current user has liked the post
+    let likedUsers = this.postBySlug.likes;
+
+    for (let likedUser in likedUsers) {
+      if (likedUsers[likedUser].id === this.userID) {
+        this.liked = true;
+      }
+    }
+
+    // Get the number of likes
+    this.numberOfLikes = parseInt(this.postBySlug.numberOfLikes);
   },
 
   methods: {
@@ -95,6 +134,22 @@ export default {
         "December",
       ][date.getMonth()];
       return month + " " + date.getDate() + ", " + date.getFullYear();
+    },
+    updateLike() {
+      if (this.liked === true) {
+        this.numberOfLikes = this.numberOfLikes - 1;
+      } else {
+        this.numberOfLikes = this.numberOfLikes + 1;
+      }
+      this.liked = !this.liked;
+
+      this.$apollo.mutate({
+      mutation: UPDATE_POST_LIKE,
+      variables: {
+        postID: this.postBySlug.id,
+        userID: this.userID,
+      },
+    });
     },
   },
 };

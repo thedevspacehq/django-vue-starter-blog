@@ -80,6 +80,9 @@ class Post(models.Model):
     created_at = models.DateField(auto_now_add=True)
     modified_at = models.DateField(auto_now=True)
 
+    # Each post can receive likes from multiple users, and each user can like multiple posts
+    likes = models.ManyToManyField(User, related_name='post_like')
+
     # Each post belong to one user and one category.
     # Each post has many tags, and each tag has many posts.
     category = models.ForeignKey(
@@ -93,6 +96,9 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_number_of_likes(self):
+        return self.likes.count()
 
 
 # Comment model

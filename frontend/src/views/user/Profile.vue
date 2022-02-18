@@ -26,13 +26,19 @@
     </div>
     <div class="border-2 p-10 space-y-10 divide-y-2">
       <h2 class="font-serif text-3xl">Comments:</h2>
-      <div v-for="comment in userInfo.commentSet" :key="comment.id" class="py-4">
+      <div
+        v-for="comment in userInfo.commentSet"
+        :key="comment.id"
+        class="py-4"
+      >
         <h3 class="font-sans font-bold text-lg">
           <a :href="`/post/${comment.post.slug}`">{{ comment.post.title }}</a> -
           <span v-if="comment.isApproved" class="text-teal-500">Approved</span
           ><span v-else class="text-red-500"> Not Approved</span>
         </h3>
-        <p class="font-serif text-gray-500 text-sm pt-2">{{ comment.content }}</p>
+        <p class="font-serif text-gray-500 text-sm pt-2">
+          {{ comment.content }}
+        </p>
       </div>
     </div>
   </div>
