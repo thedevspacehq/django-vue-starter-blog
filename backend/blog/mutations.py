@@ -2,8 +2,8 @@ import graphene
 import graphql_jwt
 from blog import models, types
 
-# Mutation sends data to the database
 
+# Mutation sends data to the database
 
 # Customize the ObtainJSONWebToken behavior to include the user info
 class ObtainJSONWebToken(graphql_jwt.JSONWebTokenMutation):
@@ -67,10 +67,30 @@ class UpdatePostLike(graphene.Mutation):
             post.likes.remove(user_id)
         else:
             post.likes.add(user_id)
-        
+
         post.save()
 
         return UpdatePostLike(post=post)
+
+
+class UpdateCommentLike(graphene.Mutation):
+    comment = graphene.Field(types.CommentType)
+
+    class Arguments:
+        comment_id = graphene.ID(required=True)
+        user_id = graphene.ID(required=True)
+
+    def mutate(self, info, comment_id, user_id):
+        comment = models.Comment.objects.get(pk=comment_id)
+
+        if comment.likes.filter(pk=user_id).exists():
+            comment.likes.remove(user_id)
+        else:
+            comment.likes.add(user_id)
+
+        comment.save()
+
+        return UpdateCommentLike(comment=comment)
 
 
 class Mutation(graphene.ObjectType):
@@ -83,3 +103,4 @@ class Mutation(graphene.ObjectType):
     create_comment = CreateComment.Field()
 
     update_post_like = UpdatePostLike.Field()
+    update_comment_like = UpdateCommentLike.Field()

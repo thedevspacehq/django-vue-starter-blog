@@ -36,3 +36,8 @@ class PostType(DjangoObjectType):
 class CommentType(DjangoObjectType):
     class Meta:
         model = models.Comment
+    
+    number_of_likes = graphene.String()
+
+    def resolve_number_of_likes(self, info):
+        return self.get_number_of_likes()

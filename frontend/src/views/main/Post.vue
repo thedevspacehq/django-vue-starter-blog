@@ -53,11 +53,12 @@
 
     <!-- Comment Section -->
     <!-- Pass the approved comments and the post id to the comment component -->
-    <CommentSectionComponent
+    <comment-section-component
       v-if="this.approvedComments"
       :comments="this.approvedComments"
       :postID="this.postBySlug.id"
-    ></CommentSectionComponent>
+      :userID="this.userID"
+    ></comment-section-component>
   </div>
 </template>
 

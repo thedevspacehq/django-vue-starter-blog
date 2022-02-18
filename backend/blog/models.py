@@ -107,6 +107,9 @@ class Comment(models.Model):
     created_at = models.DateField(auto_now_add=True)
     is_approved = models.BooleanField(default=False)
 
+    # Each post can receive likes from multiple users, and each user can like multiple posts
+    likes = models.ManyToManyField(User, related_name='comment_like')
+
     # Each comment belongs to one user and one post
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     post = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True)
@@ -121,3 +124,6 @@ class Comment(models.Model):
         else:
             comment = self.content
         return comment
+
+    def get_number_of_likes(self):
+        return self.likes.count()

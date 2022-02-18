@@ -35,33 +35,23 @@
     </div>
 
     <!-- List all comments -->
-    <div v-for="comment in comments" :key="comment.id" class="border-2 p-4">
-      <div
-        class="flex flex-row justify-start content-center items-center space-x-2 mb-2"
-      >
-        <img
-          :src="`http://127.0.0.1:8000/media/${comment.user.avatar}`"
-          alt=""
-          class="w-10"
-        />
-        <p class="text-lg font-sans font-bold">{{ comment.user.username }}</p>
-        <p class="text-sm text-gray-500">
-          - {{ formatDate(comment.createdAt) }}
-        </p>
-      </div>
-
-      <p>
-        {{ comment.content }}
-      </p>
-    </div>
+    <comment-single
+      v-for="comment in comments"
+      :key="comment.id"
+      :comment="comment"
+      :userID="this.userID"
+    >
+    </comment-single>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import { SUBMIT_COMMENT } from "@/mutations";
+import CommentSingle from "@/components/CommentSingle.vue";
 
 export default {
+  components: { CommentSingle },
   name: "CommentSectionComponent",
   data() {
     return {
@@ -78,40 +68,23 @@ export default {
       type: String,
       required: true,
     },
+    userID: {
+      type: String,
+      required: true,
+    },
   },
   computed: {
     ...mapGetters(["isAuthenticated"]),
   },
   methods: {
-    formatDate(x) {
-      let date = new Date(x);
-      var month = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ][date.getMonth()];
-      return month + " " + date.getDate() + ", " + date.getFullYear();
-    },
-
     submitComment() {
       if (this.commentContent !== "") {
-        let user = JSON.parse(localStorage.getItem("user"));
-
         this.$apollo
           .mutate({
             mutation: SUBMIT_COMMENT,
             variables: {
               content: this.commentContent,
-              userID: user.id,
+              userID: this.userID,
               postID: this.postID,
             },
           })

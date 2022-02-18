@@ -89,6 +89,10 @@ export const POST_BY_SLUG = gql`
           username
           avatar
         }
+        numberOfLikes
+        likes {
+          id
+        }
       }
     }
   }

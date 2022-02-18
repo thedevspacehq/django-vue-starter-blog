@@ -49,3 +49,15 @@ export const UPDATE_POST_LIKE = gql`
     }
   }
 `;
+
+export const UPDATE_COMMENT_LIKE = gql`
+  mutation ($commentID: ID!, $userID: ID!) {
+    updateCommentLike(commentId: $commentID, userId: $userID) {
+      comment {
+        likes {
+          id
+        }
+      }
+    }
+  }
+`;
