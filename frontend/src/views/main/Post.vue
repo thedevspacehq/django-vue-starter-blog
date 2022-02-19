@@ -15,46 +15,80 @@
       </p>
     </div>
 
+    <!-- Tags -->
+    <div class="flex flex-wrap my-4">
+      <div class="mr-5 text-sm font-medium">Tags:</div>
+      <router-link
+        v-for="tag in postBySlug.tag"
+        :key="tag.name"
+        class="mr-5 text-sm font-medium uppercase text-teal-500 hover:underline hover:text-teal-700"
+        :to="`/tag/${tag.slug}`"
+        >{{ tag.name }}</router-link
+      >
+    </div>
+
     <!-- Main content -->
     <div class="py-5 font-serif space-y-4">
       <div v-html="postBySlug.content"></div>
     </div>
 
-    <!-- Like -->
-    <div class="flex flex-wrap py-4 space-x-2 items-center">
-      <p class="my-2 text-sm font-medium">Likes:</p>
+    <!-- Like, Comment and Share -->
+    <div
+      class="flex flex-wrap py-4 space-x-8 justify-center items-center text-xl"
+    >
+      <!-- <p class="my-2 text-sm font-medium">Likes:</p> -->
       <div v-if="this.liked === true" @click="this.updateLike()">
         <i class="fa-solid fa-thumbs-up">
-          <span class="font-sans text-sm font-normal ml-1">{{
+          <span class="font-sans font-semibold ml-1">{{
             this.numberOfLikes
           }}</span>
         </i>
       </div>
       <div v-else @click="this.updateLike()">
         <i class="fa-regular fa-thumbs-up">
-          <span class="font-sans text-sm font-normal ml-1">{{
+          <span class="font-sans font-semibold ml-1">{{
             this.numberOfLikes
           }}</span>
         </i>
       </div>
-    </div>
-
-    <!-- Tags -->
-    <div class="flex flex-wrap">
-      <div class="my-2 mr-5 text-sm font-medium">Tags:</div>
-      <router-link
-        v-for="tag in postBySlug.tag"
-        :key="tag.name"
-        class="my-2 mr-5 text-sm font-medium uppercase text-teal-500 hover:underline hover:text-teal-700"
-        :to="`/tag/${tag.slug}`"
-        >{{ tag.name }}</router-link
-      >
+      <div @click="this.toggleCommentSection()">
+        <i class="fa-regular fa-comment-dots"
+          ><span class="font-sans font-semibold ml-1">{{
+            this.numberOfApprovedComments
+          }}</span></i
+        >
+      </div>
+      <div id="socialShareIcon" @click="this.toggleSocialSharePopover()">
+        <i class="fa-solid fa-share-nodes"></i>
+      </div>
+      <div id="socialShare">
+        <div v-if="this.showSocialShare" class="flex space-x-2 drop-shadow-lg border-2 p-2">
+          <i
+            class="fa-brands fa-linkedin text-3xl text-gray-700 hover:text-teal-700"
+          ></i>
+          <i
+            class="fa-brands fa-facebook-square text-3xl text-gray-700 hover:text-teal-700"
+          ></i>
+          <i
+            class="fa-brands fa-twitter-square text-3xl text-gray-700 hover:text-teal-700"
+          ></i>
+          <i
+            class="fa-brands fa-google-plus-square text-3xl text-gray-700 hover:text-teal-700"
+          ></i>
+          <i
+            class="fa-brands fa-github-square text-3xl text-gray-700 hover:text-teal-700"
+          ></i>
+          <i
+            class="fa-brands fa-dev text-3xl text-gray-700 hover:text-teal-700"
+          ></i>
+        </div>
+      </div>
     </div>
 
     <!-- Comment Section -->
     <!-- Pass the approved comments and the post id to the comment component -->
     <comment-section-component
-      v-if="this.approvedComments"
+      v-if="this.approvedComments && this.showComment"
       :comments="this.approvedComments"
       :postID="this.postBySlug.id"
       :userID="this.userID"
@@ -66,6 +100,7 @@
 import { POST_BY_SLUG } from "@/queries";
 import CommentSectionComponent from "@/components/CommentSection.vue";
 import { UPDATE_POST_LIKE } from "@/mutations";
+import { createPopper } from "@popperjs/core";
 
 export default {
   name: "PostView",
@@ -79,6 +114,8 @@ export default {
       liked: false,
       numberOfLikes: 0,
       userID: null,
+      showComment: false,
+      showSocialShare: false,
     };
   },
 
@@ -86,6 +123,9 @@ export default {
     // Filters out the unapproved comments
     approvedComments() {
       return this.comments.filter((comment) => comment.isApproved);
+    },
+    numberOfApprovedComments() {
+      return Object.keys(this.approvedComments).length;
     },
   },
 
@@ -117,6 +157,22 @@ export default {
     this.numberOfLikes = parseInt(this.postBySlug.numberOfLikes);
   },
 
+  mounted() {
+    const socialShareIcon = document.querySelector("#socialShareIcon");
+    const socialShare = document.querySelector("#socialShare");
+    createPopper(socialShareIcon, socialShare, {
+      placement: "right",
+      modifiers: [
+        {
+          name: "offset",
+          options: {
+            offset: [-10, 20],
+          },
+        },
+      ],
+    });
+  },
+
   methods: {
     formatDate(x) {
       let date = new Date(x);
@@ -145,12 +201,18 @@ export default {
       this.liked = !this.liked;
 
       this.$apollo.mutate({
-      mutation: UPDATE_POST_LIKE,
-      variables: {
-        postID: this.postBySlug.id,
-        userID: this.userID,
-      },
-    });
+        mutation: UPDATE_POST_LIKE,
+        variables: {
+          postID: this.postBySlug.id,
+          userID: this.userID,
+        },
+      });
+    },
+    toggleCommentSection() {
+      this.showComment = !this.showComment;
+    },
+    toggleSocialSharePopover() {
+      this.showSocialShare = !this.showSocialShare;
     },
   },
 };
