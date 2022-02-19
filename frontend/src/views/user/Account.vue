@@ -1,5 +1,9 @@
 <template>
   <div class="flex flex-col justify-start items-center h-screen">
+    <div v-if="this.attempted">
+      <p v-if="isAuthenticated" class="text-teal-500">You have been signed in.</p>
+      <p v-else class="text-red-500">Sorry, we cannot find your credentials.</p>
+    </div>
     <ul class="flex justify-center items-center my-4 font-sans font-medium">
       <div v-for="(tab, index) in tabs" :key="index">
         <li
@@ -22,7 +26,7 @@
                 >
                 <input
                   type="text"
-                  class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
                   v-model="signInDetails.username"
                 />
               </div>
@@ -32,7 +36,7 @@
                 >
                 <input
                   type="text"
-                  class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
                   v-model="signInDetails.password"
                 />
               </div>
@@ -55,7 +59,7 @@
                 >
                 <input
                   type="text"
-                  class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
                   v-model="signUpDetails.username"
                 />
               </div>
@@ -65,7 +69,7 @@
                 >
                 <input
                   type="text"
-                  class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
                   v-model="signUpDetails.email"
                 />
               </div>
@@ -75,7 +79,7 @@
                 >
                 <input
                   type="text"
-                  class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
                   v-model="signUpDetails.password"
                 />
               </div>
@@ -93,7 +97,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "AccountView",
@@ -110,15 +114,23 @@ export default {
         email: "",
         password: "",
       },
+      attempted: false,
     };
   },
+
+  computed: {
+    ...mapGetters(["isAuthenticated"]),
+  },
+
   methods: {
     ...mapActions(["signUp", "signIn"]),
     userSignIn: function () {
-      this.signIn(this.signInDetails).then(() => this.$router.push("/success"));
+      this.signIn(this.signInDetails);
+      this.attempted = true;
     },
     userSignUp: function () {
-      this.signUp(this.signUpDetails).then(() => this.$router.push("/success"));
+      this.signUp(this.signUpDetails);
+      this.attempted = true;
     },
   },
 };

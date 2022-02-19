@@ -21,7 +21,7 @@
       <form action="POST" @submit.prevent="submitComment">
         <textarea
           type="text"
-          class="border-2 focus:ring-teal-500 p-4 outline-none rounded-md w-full"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
           rows="5"
           v-model="commentContent"
         />

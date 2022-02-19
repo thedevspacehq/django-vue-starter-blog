@@ -6,7 +6,6 @@ import TagView from "@/views/main/Tag.vue";
 import AllCategoriesView from "@/views/main/AllCategories.vue";
 import AllTagsView from "@/views/main/AllTags.vue";
 import AccountView from "@/views/user/Account.vue";
-import SignInSuccessView from "@/views/user/SignInSuccess.vue"
 import ProfileView from "@/views/user/Profile.vue"
 
 const routes = [
@@ -44,11 +43,6 @@ const routes = [
     path: "/account",
     name: "Account",
     component: AccountView,
-  },
-  {
-    path: "/success",
-    name: "Success",
-    component: SignInSuccessView,
   },
   {
     path: "/account/profile",
