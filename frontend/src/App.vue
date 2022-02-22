@@ -155,7 +155,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["isAuthenticated", "user"]),
+    ...mapGetters(["isAuthenticated"]),
   },
 
   async created() {

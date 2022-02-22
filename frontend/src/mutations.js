@@ -5,6 +5,23 @@ export const USER_SIGNUP = gql`
     createUser(username: $username, email: $email, password: $password) {
       user {
         username
+        firstName
+        lastName
+        email
+        avatar
+        bio
+        location
+        website
+        commentSet {
+          id
+          content
+          post {
+            id
+            title
+            slug
+          }
+          isApproved
+        }
       }
     }
   }
@@ -15,13 +32,24 @@ export const USER_SIGNIN = gql`
     tokenAuth(username: $username, password: $password) {
       token
       user {
-        id
         username
         firstName
         lastName
         email
+        avatar
         bio
+        location
         website
+        commentSet {
+          id
+          content
+          post {
+            id
+            title
+            slug
+          }
+          isApproved
+        }
       }
     }
   }
@@ -56,6 +84,49 @@ export const UPDATE_COMMENT_LIKE = gql`
       comment {
         likes {
           id
+        }
+      }
+    }
+  }
+`;
+
+export const UPDATE_USER_PROFILE = gql`
+  mutation (
+    $userID: ID!
+    $firstName: String!
+    $lastName: String!
+    $avatar: Upload!
+    $bio: String!
+    $location: String!
+    $website: String!
+  ) {
+    updateUserProfile(
+      userId: $userID
+      firstName: $firstName
+      lastName: $lastName
+      avatar: $avatar
+      bio: $bio
+      location: $location
+      website: $website
+    ) {
+      user {
+        username
+        firstName
+        lastName
+        email
+        avatar
+        bio
+        location
+        website
+        commentSet {
+          id
+          content
+          post {
+            id
+            title
+            slug
+          }
+          isApproved
         }
       }
     }

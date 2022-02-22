@@ -63,7 +63,7 @@ export default {
     },
   },
   async created() {
-    // Check if the current user has liked the post
+    // Check if the current user has liked the comment
     let likedUsers = this.comment.likes;
 
     for (let likedUser in likedUsers) {

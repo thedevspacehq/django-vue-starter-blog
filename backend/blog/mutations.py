@@ -1,5 +1,6 @@
 import graphene
 import graphql_jwt
+from graphene_file_upload.scalars import Upload
 from blog import models, types
 
 
@@ -14,7 +15,6 @@ class ObtainJSONWebToken(graphql_jwt.JSONWebTokenMutation):
         return cls(user=info.context.user)
 
 
-# User Creation
 class CreateUser(graphene.Mutation):
     user = graphene.Field(types.UserType)
 
@@ -32,6 +32,33 @@ class CreateUser(graphene.Mutation):
         user.save()
 
         return CreateUser(user=user)
+
+
+class UpdateUserProfile(graphene.Mutation):
+    user = graphene.Field(types.UserType)
+
+    class Arguments:
+        user_id = graphene.ID(required=True)
+        first_name = graphene.String(required=False)
+        last_name = graphene.String(required=False)
+        avatar = Upload(required=False)
+        bio = graphene.String(required=False)
+        location = graphene.String(required=False)
+        website = graphene.String(required=False)
+
+    def mutate(self, info, user_id, first_name='', last_name='', avatar='', bio='', location='', website=''):
+        user = models.User.objects.get(pk=user_id)
+
+        user.first_name = first_name
+        user.last_name = last_name
+        user.avatar = avatar
+        user.bio = bio
+        user.location = location
+        user.website = website
+
+        user.save()
+
+        return UpdateUserProfile(user=user)
 
 
 class CreateComment(graphene.Mutation):
@@ -104,3 +131,4 @@ class Mutation(graphene.ObjectType):
 
     update_post_like = UpdatePostLike.Field()
     update_comment_like = UpdateCommentLike.Field()
+    update_user_profile = UpdateUserProfile.Field()

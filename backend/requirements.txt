@@ -8,6 +8,7 @@ django-graphql-jwt==0.3.4
 django-js-asset==1.2.2
 graphene==2.1.9
 graphene-django==2.15.0
+graphene-file-upload==1.3.0
 graphql-core==2.3.2
 graphql-relay==2.0.1
 Pillow==9.0.1

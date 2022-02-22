@@ -36,7 +36,6 @@
     <div
       class="flex flex-wrap py-4 space-x-8 justify-center items-center text-xl"
     >
-      <!-- <p class="my-2 text-sm font-medium">Likes:</p> -->
       <div v-if="this.liked === true" @click="this.updateLike()">
         <i class="fa-solid fa-thumbs-up">
           <span class="font-sans font-semibold ml-1">{{
@@ -62,7 +61,10 @@
         <i class="fa-solid fa-share-nodes"></i>
       </div>
       <div id="socialShare">
-        <div v-if="this.showSocialShare" class="flex space-x-2 drop-shadow-lg border-2 p-2">
+        <div
+          v-if="this.showSocialShare"
+          class="flex space-x-2 drop-shadow-lg border-2 p-2"
+        >
           <i
             class="fa-brands fa-linkedin text-3xl text-gray-700 hover:text-teal-700"
           ></i>
