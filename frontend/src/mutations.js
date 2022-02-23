@@ -4,6 +4,7 @@ export const USER_SIGNUP = gql`
   mutation ($username: String!, $email: String!, $password: String!) {
     createUser(username: $username, email: $email, password: $password) {
       user {
+        id
         username
         firstName
         lastName
@@ -32,6 +33,7 @@ export const USER_SIGNIN = gql`
     tokenAuth(username: $username, password: $password) {
       token
       user {
+        id
         username
         firstName
         lastName
@@ -69,6 +71,7 @@ export const UPDATE_POST_LIKE = gql`
   mutation ($postID: ID!, $userID: ID!) {
     updatePostLike(postId: $postID, userId: $userID) {
       post {
+        id
         title
         likes {
           id
@@ -82,6 +85,7 @@ export const UPDATE_COMMENT_LIKE = gql`
   mutation ($commentID: ID!, $userID: ID!) {
     updateCommentLike(commentId: $commentID, userId: $userID) {
       comment {
+        id
         likes {
           id
         }
@@ -110,6 +114,7 @@ export const UPDATE_USER_PROFILE = gql`
       website: $website
     ) {
       user {
+        id
         username
         firstName
         lastName

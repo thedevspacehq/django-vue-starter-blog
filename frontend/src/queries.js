@@ -72,6 +72,7 @@ export const POST_BY_SLUG = gql`
         slug
       }
       user {
+        id
         username
         firstName
         lastName
@@ -119,6 +120,7 @@ export const ALL_TAGS = gql`
 export const CURRENT_USER = gql`
   query ($id: ID!) {
     currentUser(id: $id) {
+      id
       username
       firstName
       lastName
