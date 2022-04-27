@@ -133,7 +133,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CKEDITOR_UPLOAD_PATH = "posts/uploads/%Y/%m/%d/"
 
 # Media Files
-MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
+MEDIA_ROOT = '/Users/erichu/Documents/GitHub/django-vue-starter-blog/frontend/public/uploads'
 MEDIA_URL = '/media/'
 
 # Change Default User Model

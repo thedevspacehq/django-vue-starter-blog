@@ -3,7 +3,7 @@
     <div class="flex flex-col justify-between h-screen">
       <header class="flex flex-row items-center justify-between py-10">
         <div class="nav-logo text-2xl font-bold">
-          <router-link to="/" v-if="mySite">{{ mySite.name }}</router-link>
+          <router-link to="/" v-if="this.mySite">{{ this.mySite.name }}</router-link>
         </div>
         <div class="nav-links hidden sm:block">
           <router-link
@@ -22,19 +22,19 @@
             >Tag</router-link
           >
           <router-link
-            v-if="!this.isAuthenticated"
-            to="/account"
+            v-if="!this.user.isAuthenticated"
+            to="/signin"
             class="mx-2 font-sans font-medium hover:underline hover:text-teal-700"
-            >Sign in / Sign up</router-link
+            >Sign in</router-link
           >
           <router-link
-            v-if="this.isAuthenticated"
-            to="/account/profile"
+            v-if="this.user.isAuthenticated"
+            to="/profile"
             class="mx-2 font-sans font-medium hover:underline hover:text-teal-700"
             >Profile</router-link
           >
           <a
-            v-if="this.isAuthenticated"
+            v-if="this.user.isAuthenticated"
             @click="userSignOut()"
             class="mx-2 font-sans font-medium hover:underline hover:text-teal-700"
             >Sign Out</a
@@ -45,18 +45,18 @@
             type="button"
             class="ml-1 mr-1 h-8 w-8 rounded py-1"
             aria-label="Toggle Menu"
-            @click="menuOpen = !menuOpen"
+            @click="this.menuOpen = !this.menuOpen"
           >
-            <i v-if="menuOpen" class="fa-solid fa-xmark"></i>
+            <i v-if="this.menuOpen" class="fa-solid fa-xmark"></i>
             <i v-else class="fa-solid fa-bars"></i>
           </button>
           <div
-            :class="{ 'translate-x-full': !menuOpen }"
+            :class="{ 'translate-x-full': !this.menuOpen }"
             class="fixed top-24 right-0 z-10 h-full w-full transform bg-gray-200 opacity-95 duration-300 ease-in-out dark:bg-gray-800"
           >
             <nav
               class="fixed mt-8 w-full h-full flex flex-col space-y-2"
-              @click="menuOpen = !menuOpen"
+              @click="this.menuOpen = !this.menuOpen"
             >
               <router-link
                 to="/"
@@ -75,21 +75,21 @@
               >
 
               <router-link
-                v-if="!this.isAuthenticated"
-                to="/account"
+                v-if="!this.user.isAuthenticated"
+                to="/signin"
                 class="pl-4 text-xl font-sans font-medium hover:underline hover:text-teal-700"
-                >Sign in / Sign up</router-link
+                >Sign in</router-link
               >
 
               <router-link
-                v-if="this.isAuthenticated"
-                to="/account/profile"
+                v-if="this.user.isAuthenticated"
+                to="/profile"
                 class="pl-4 text-xl font-sans font-medium hover:underline hover:text-teal-700"
                 >Profile</router-link
               >
 
               <a
-                v-if="this.isAuthenticated"
+                v-if="this.user.isAuthenticated"
                 @click="userSignOut()"
                 class="pl-4 text-xl font-sans font-medium hover:underline hover:text-teal-700"
                 >Sign Out</a
@@ -144,18 +144,25 @@
 
 <script>
 import { SITE_INFO } from "@/queries";
-import { mapGetters, mapActions } from "vuex";
+import { useUserStore } from "@/stores/user";
 
 export default {
+  setup() {
+    const userStore = useUserStore();
+    return { userStore };
+  },
+
   data() {
     return {
       menuOpen: false,
       mySite: null,
+      user: {
+        isAuthenticated: false,
+        token: this.userStore.getToken || "",
+        info: this.userStore.getUser || {},
+      },
+      dataLoaded: false,
     };
-  },
-
-  computed: {
-    ...mapGetters(["isAuthenticated"]),
   },
 
   async created() {
@@ -163,12 +170,16 @@ export default {
       query: SITE_INFO,
     });
     this.mySite = siteInfo.data.site;
+
+    if (this.user.token) {
+      this.user.isAuthenticated = true;
+    }
   },
 
   methods: {
-    ...mapActions(["signOut"]),
-    userSignOut: function () {
-      this.signOut().then(() => this.$router.push("/"));
+    userSignOut() {
+      this.userStore.removeToken();
+      this.userStore.removeUser();
     },
   },
 };

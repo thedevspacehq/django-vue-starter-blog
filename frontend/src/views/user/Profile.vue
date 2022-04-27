@@ -2,7 +2,7 @@
   <div class="flex flex-col">
     <div>
       <img
-        :src="`http://127.0.0.1:8000/media/${userInfo.avatar}`"
+        :src="'/uploads/' + this.userInfo.avatar"
         alt=""
         class="w-32 h-3w-32 rounded-lg object-contain mx-auto"
       />
@@ -10,17 +10,17 @@
     <div class="grid grid-col-1 md:grid-cols-2 gap-4 my-24 border-2 p-10">
       <div class="md:self-center md:px-4 md:space-y-2">
         <p class="font-serif text-5xl">
-          {{ userInfo.firstName }} {{ userInfo.lastName }}
+          {{ this.userInfo.firstName }} {{ this.userInfo.lastName }}
         </p>
-        <p class="font-sans text-lg">@{{ userInfo.username }}</p>
-        <p>Location: {{ userInfo.location }}</p>
+        <p class="font-sans text-lg">@{{ this.userInfo.username }}</p>
+        <p>Location: {{ this.userInfo.location }}</p>
         <p>
-          Website: <a :href="userInfo.website">{{ userInfo.website }}</a>
+          Website: <a :href="this.userInfo.website">{{ this.userInfo.website }}</a>
         </p>
       </div>
       <div class="font-serif">
         <p>
-          {{ userInfo.bio }}
+          {{ this.userInfo.bio }}
         </p>
       </div>
 
@@ -219,13 +219,20 @@
 
 <script>
 import { UPDATE_USER_PROFILE } from "@/mutations";
+import { CURRENT_USER } from "@/queries";
+import { useUserStore } from "@/stores/user";
 
 export default {
   name: "ProfileView",
 
+  setup() {
+    const userStore = useUserStore();
+    return { userStore };
+  },
+
   data() {
     return {
-      userInfo: JSON.parse(localStorage.getItem("user")),
+      userInfo: {},
       modalIsHidden: true,
       profileUpdateInputs: {
         firstName: "",
@@ -237,6 +244,20 @@ export default {
         bio: "",
       },
     };
+  },
+
+  async created() {
+    try {
+      const user = await this.$apollo.query({
+        query: CURRENT_USER,
+        variables: {
+          username: this.userStore.getUser.username,
+        },
+      });
+      this.userInfo = user.data.currentUser;
+    } catch (e) {
+      console.log(e);
+    }
   },
 
   methods: {
@@ -258,14 +279,13 @@ export default {
         JSON.stringify(user.data.updateUserProfile.user)
       );
 
-      // Refresh the page
-      this.$router.go();
+      window.location.reload(); // Refresh the page
     },
 
-    selectImage(event){
+    selectImage(event) {
       this.profileUpdateInputs.avatar = event.target.files[0];
       console.log(this.profileUpdateInputs.avatar);
-    }
+    },
   },
 };
 </script>

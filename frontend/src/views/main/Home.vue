@@ -5,7 +5,7 @@
       A blog created with Django, Vue.js and TailwindCSS
     </p>
 
-    <post-list :posts="allPosts"></post-list>
+    <post-list :posts="this.allPosts"></post-list>
   </div>
 </template>
 

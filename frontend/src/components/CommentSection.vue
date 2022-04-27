@@ -3,7 +3,7 @@
     <p class="font-bold text-2xl">Comments:</p>
 
     <!-- If the user is not authenticated -->
-    <div v-if="!isAuthenticated">
+    <div v-if="!this.user.isAuthenticated">
       You need to
       <router-link
         to="/account"
@@ -15,7 +15,7 @@
 
     <!-- If the user is authenticated -->
     <div v-else>
-      <div v-if="commentSubmitSuccess" class="">
+      <div v-if="this.commentSubmitSuccess" class="">
         Your comment will show up here after is has been approved.
       </div>
       <form action="POST" @submit.prevent="submitComment">
@@ -46,17 +46,28 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 import { SUBMIT_COMMENT } from "@/mutations";
 import CommentSingle from "@/components/CommentSingle.vue";
+import { useUserStore } from "@/stores/user";
 
 export default {
   components: { CommentSingle },
   name: "CommentSectionComponent",
+
+  setup() {
+    const userStore = useUserStore();
+    return { userStore };
+  },
+
   data() {
     return {
       commentContent: "",
       commentSubmitSuccess: false,
+      user: {
+        isAuthenticated: false,
+        token: this.userStore.getToken || "",
+        info: this.userStore.getUser || {},
+      },
     };
   },
   props: {
@@ -73,8 +84,10 @@ export default {
       required: true,
     },
   },
-  computed: {
-    ...mapGetters(["isAuthenticated"]),
+  async created() {
+    if (this.user.token) {
+      this.user.isAuthenticated = true;
+    }
   },
   methods: {
     submitComment() {

@@ -3,6 +3,6 @@ import App from "./App.vue";
 import "./index.css";
 import router from "./router";
 import { apolloProvider } from "@/apollo-config";
-import { store } from "@/vuex-config";
+import { createPinia } from "pinia";
 
-createApp(App).use(store).use(router).use(apolloProvider).mount("#app");
+createApp(App).use(createPinia()).use(router).use(apolloProvider).mount("#app");

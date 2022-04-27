@@ -5,7 +5,7 @@
       A blog created with Django, Vue.js and TailwindCSS
     </p>
 
-    <post-list :posts="postsByCategory"></post-list>
+    <post-list :posts="this.postsByCategory"></post-list>
 
     <div class="space-y-2 pt-6 pb-8 md:space-y-5">
       <nav class="flex justify-between">

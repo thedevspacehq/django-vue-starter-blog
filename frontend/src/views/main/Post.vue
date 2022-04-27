@@ -3,15 +3,15 @@
     <div class="flex flex-col place-items-center border-b-2">
       <!-- Featured Image and title -->
       <img
-        :src="`http://127.0.0.1:8000/media/${postBySlug.featuredImage}`"
+        :src="'/uploads/' + this.postBySlug.featuredImage"
         class="w-full my-5"
       />
       <h1 class="text-center text-5xl font-extrabold mb-5">
-        {{ postBySlug.title }}
+        {{ this.postBySlug.title }}
       </h1>
       <p class="text-gray-500 text-lg mb-2">
-        {{ formatDate(postBySlug.createdAt) }} - By
-        {{ postBySlug.user.username }}
+        {{ formatDate(this.postBySlug.createdAt) }} - By
+        {{ this.postBySlug.user.username }}
       </p>
     </div>
 
@@ -19,7 +19,7 @@
     <div class="flex flex-wrap my-4">
       <div class="mr-5 text-sm font-medium">Tags:</div>
       <router-link
-        v-for="tag in postBySlug.tag"
+        v-for="tag in this.postBySlug.tag"
         :key="tag.name"
         class="mr-5 text-sm font-medium uppercase text-teal-500 hover:underline hover:text-teal-700"
         :to="`/tag/${tag.slug}`"
@@ -29,7 +29,7 @@
 
     <!-- Main content -->
     <div class="py-5 font-serif space-y-4">
-      <div v-html="postBySlug.content"></div>
+      <div v-html="this.postBySlug.content"></div>
     </div>
 
     <!-- Like, Comment and Share -->

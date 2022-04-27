@@ -118,8 +118,8 @@ export const ALL_TAGS = gql`
 `;
 
 export const CURRENT_USER = gql`
-  query ($id: ID!) {
-    currentUser(id: $id) {
+  query ($username: String!) {
+    currentUser(username: $username) {
       id
       username
       firstName

@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { UPDATE_COMMENT_LIKE } from '@/mutations';
+import { UPDATE_COMMENT_LIKE } from "@/mutations";
 
 export default {
   name: "CommentSingleComponent",
@@ -72,7 +72,7 @@ export default {
       }
     }
     // Get the number of likes
-    console.log(this.comment.numberOfLikes)
+    console.log(this.comment.numberOfLikes);
     this.numberOfLikes = parseInt(this.comment.numberOfLikes);
   },
   methods: {
@@ -103,12 +103,12 @@ export default {
       this.liked = !this.liked;
 
       this.$apollo.mutate({
-      mutation: UPDATE_COMMENT_LIKE,
-      variables: {
-        commentID: this.comment.id,
-        userID: this.userID,
-      },
-    });
+        mutation: UPDATE_COMMENT_LIKE,
+        variables: {
+          commentID: this.comment.id,
+          userID: this.userID,
+        },
+      });
     },
   },
 };

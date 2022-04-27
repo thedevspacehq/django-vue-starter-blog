@@ -6,23 +6,6 @@ export const USER_SIGNUP = gql`
       user {
         id
         username
-        firstName
-        lastName
-        email
-        avatar
-        bio
-        location
-        website
-        commentSet {
-          id
-          content
-          post {
-            id
-            title
-            slug
-          }
-          isApproved
-        }
       }
     }
   }
@@ -42,16 +25,6 @@ export const USER_SIGNIN = gql`
         bio
         location
         website
-        commentSet {
-          id
-          content
-          post {
-            id
-            title
-            slug
-          }
-          isApproved
-        }
       }
     }
   }

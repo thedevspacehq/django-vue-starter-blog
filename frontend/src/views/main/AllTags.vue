@@ -5,7 +5,7 @@
     </div>
     <div class="flex flex-wrap py-8">
       <router-link
-        v-for="tag in allTags"
+        v-for="tag in this.allTags"
         :key="tag.name"
         class="my-2 mr-5 text-sm font-medium uppercase text-teal-500 hover:underline hover:text-teal-700"
         :to="`/tag/${tag.slug}`"

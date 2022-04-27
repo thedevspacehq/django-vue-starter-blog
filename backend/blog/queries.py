@@ -12,7 +12,7 @@ class Query(graphene.ObjectType):
     posts_by_category = graphene.List(types.PostType, category=graphene.String())
     posts_by_tag = graphene.List(types.PostType, tag=graphene.String())
     post_by_slug = graphene.Field(types.PostType, slug=graphene.String())
-    current_user = graphene.Field(types.UserType, id=graphene.ID())
+    current_user = graphene.Field(types.UserType, username=graphene.String())
 
     def resolve_site(root, info):
         return (
@@ -49,7 +49,7 @@ class Query(graphene.ObjectType):
             models.Post.objects.get(slug__iexact=slug)
         )
 
-    def resolve_current_user(self, info, id):
+    def resolve_current_user(self, info, username):
         return (
-            models.User.objects.get(pk=id)
+            models.User.objects.get(username__iexact=username)
         )
