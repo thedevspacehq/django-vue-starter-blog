@@ -62,7 +62,7 @@ For the backend, first create a virtual environment.
 
 ```bash
 cd backend
-python3 venv env
+python3 -m venv env
 source env/bin/activate
 ```
 
@@ -79,6 +79,8 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
+If you get this error: `ImportError: cannot import name 'force_text' from 'django.utils.encoding'`, you can replace `force_text` with `force_str` like [this article](https://exerror.com/importerror-cannot-import-name-force_text-from-django-utils-encoding/). This issue should be resolved in future versions of Django.
+
 Start dev server.
 
 ```bash
@@ -91,6 +93,8 @@ For the frontend, install packages.
 cd frontend
 npm install
 ```
+
+If you are getting errors when installing packages, just run `npm install --force`. Some packages has been deprecated, but everything still work for now. I will try to update this project as soon as possible.
 
 Start frontend dev server.
 
