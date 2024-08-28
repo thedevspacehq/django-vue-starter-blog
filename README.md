@@ -2,6 +2,8 @@
 
 A simple blog application created using Django, Vue.js and GraphQL.
 
+Interest in learning how to create this demo app with Django and Vue? Take a look at this tutorial -> [How to Create a Modern App with Django and Vue](https://www.thedevspace.io/community/django-vue)
+
 ## Features
 
 - Including recent posts, category, tag, and post page
